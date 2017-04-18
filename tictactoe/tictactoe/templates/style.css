@@ -1,0 +1,79 @@
+html,
+body {
+  
+}
+
+.mark_o {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border: 2px solid;
+    border-radius: 50%;  
+    border-color: black;
+    width: 88%;
+    height: 88%;
+        position: absolute
+
+ }
+ 
+ .mark_x {
+    right: 50%;
+    background-color: black;
+    width: 3%;
+    height: 90%;
+    transform: rotate(-45deg);
+    z-index: 1;
+    position: absolute
+
+ }
+
+  .mark_xx {
+    left: 50%;
+    background-color: black;
+    width: 3%;
+    height: 90%;
+    transform: rotate(45deg);
+    z-index: 2;
+    position: absolute
+
+
+ }
+ 
+.container {
+  margin: auto;
+  display: flex;
+  flex-direction: rows;
+  flex-wrap: wrap;
+  /*justify-content: space-around;*/
+  height: 500px;
+  width: 500px;
+}
+
+.box {
+  flex: 0 0 30%;
+  position: relative;
+
+}
+
+.box:nth-child(2),
+.box:nth-child(8){
+  border-top: white;
+  border-bottom: white;
+  border-style: solid; 
+  border-width: 1px; 
+}
+ 
+.box:nth-child(5){
+  border-style: solid; 
+  border-width: 1px; 
+}
+
+.box:nth-child(4),
+.box:nth-child(6){
+  border-style: solid; 
+  border-left: white;
+  border-right: white;
+  border-width: 1px; 
+}
+
