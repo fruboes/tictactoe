@@ -5,11 +5,9 @@ function fix_size(){
   $(".container").css("height", 0.9*grid_size);
 }
 
-// <div class="mark_o"></div>
-// <div class="mark_x"></div><div class="mark_xx"></div>
 function add_mark(field) {
-  //console.log(field)
-  var state 
+  var state
+
   state = 0
   if (field.is("[state]")) {
     state = Number(field.attr("state"))
@@ -23,14 +21,32 @@ function add_mark(field) {
   } else if (state === 2) {
     field.html('<div class="mark_x"></div><div class="mark_xx"></div>')
   }
+
+  field_states = {}
+  $(".box").each( function(index) {
+    var element = $(this)
+    state = 0
+    if (element.is("[state]")) {
+        state = Number(element.attr("state"))
+    }
+    if (state !== 0) {
+        field_states["f_"+index] = state
+    }
+  })
+
+  $.getJSON("/next_move",
+            field_states,
+            function(ret) { console.log(ret)}
+            )
+
+
 }
 
 $( document ).ready(function() {
   fix_size()
   $(".box").each( function(index) {
     $(this).click(function() {
-      //add_mark(index)
-      add_mark( $(this) )
+      add_mark( $(this))
     })
   })
  
