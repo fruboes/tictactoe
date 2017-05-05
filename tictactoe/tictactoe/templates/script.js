@@ -26,26 +26,35 @@ function get_field_states() {
 
 }
 
+function add_mark(field, state) {
+  var cur_state = get_field_state(field)
+  if (cur_state === 0) {
+    field.attr("state", state)
+    if (state === 1) {
+        field.html('<div class="mark_o"></div>')
+    }
+    else if (state === 2){
+        field.html('<div class="mark_x"></div><div class="mark_xx"></div>')
+    }
 
-function add_mark(field) {
-  var state = get_field_state(field)
 
-  state = (state + 1) % 3
-  field.attr("state", state)
-  if (state === 0) {
-    field.html("")
-  } else if (state === 1) {
-    field.html('<div class="mark_o"></div>')
-  } else if (state === 2) {
-    field.html('<div class="mark_x"></div><div class="mark_xx"></div>')
   }
+}
 
-  var field_states = get_field_states();
+function add_user_mark_and_send_to_server(field) {
+  var state = get_field_state(field)
+  if (state === 0) {
+    add_mark(field, 2)
+    var field_states = get_field_states();
 
-  $.getJSON("/next_move",
+    $.getJSON("/next_move",
             field_states,
-            function(ret) { console.log(ret)}
-            )
+            function(ret) {
+                if (ret.result>0) {
+                    add_mark($(".box:eq("+ret.result+")"), 1)
+                }
+            })
+  }
 
 
 }
@@ -54,7 +63,7 @@ $( document ).ready(function() {
   fix_size()
   $(".box").each( function(index) {
     $(this).click(function() {
-      add_mark( $(this))
+      add_user_mark_and_send_to_server( $(this))
     })
   })
  
