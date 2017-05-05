@@ -21,7 +21,9 @@ function get_field_states() {
         field_states["f_"+index] = state
     }
   })
+  console.log(field_states)
   return field_states
+
 }
 
 
