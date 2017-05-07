@@ -1,3 +1,5 @@
+var move_possible = true;
+
 function fix_size(){
   
   var grid_size = Math.min($(window).height(), $(window).width());
@@ -58,6 +60,7 @@ function check_fields(f1, f2, f3, values_this_target, target) {
         $(".box:eq("+f1+")").children().css(css_target, "red");
         $(".box:eq("+f2+")").children().css(css_target, "red");
         $(".box:eq("+f3+")").children().css(css_target, "red");
+        move_possible = false
         return true
     }
     return false
@@ -90,6 +93,9 @@ function check_win_and_mark(field_states, target) {
 
 
 function add_user_mark_and_send_to_server(field) {
+  if (move_possible !== true) {
+    return
+  }
   var state = get_field_state(field)
   if (state === 0) {
     add_mark(field, 2)
