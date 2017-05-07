@@ -43,15 +43,18 @@ function add_mark(field, state) {
 
 
 function check_fields(f1, f2, f3, values_this_target) {
-        var name_1 = "f_"+f1
-        var name_2 = "f_"+f2
-        var name_3 = "f_"+f3
-        if ($.inArray(name_1, values_this_target) !== -1 &&
-            $.inArray(name_2, values_this_target) !== -1 &&
-            $.inArray(name_3, values_this_target) !== -1)
-        {
-            console.log("win:"+name_1+name_2+name_3)
-        }
+    var name_1 = "f_"+f1
+    var name_2 = "f_"+f2
+    var name_3 = "f_"+f3
+    //console.log(name_1+name_2+name_3)
+    if ($.inArray(name_1, values_this_target) !== -1 &&
+        $.inArray(name_2, values_this_target) !== -1 &&
+        $.inArray(name_3, values_this_target) !== -1)
+    {
+        console.log("win:"+name_1+name_2+name_3)
+        return true
+    }
+    return false
 
 
 }
@@ -64,11 +67,18 @@ function check_win_and_mark(field_states, target) {
         }
     }
     for (i = 0; i < 3; i++){
-        check_fields(i*3, i*3+1, i*3+2, values_this_target)
-        check_fields(i, i+3, i+6, values_this_target)
+        if (check_fields(i*3, i*3+1, i*3+2, values_this_target) ||
+            check_fields(i, i+3, i+6, values_this_target))
+        {
+            return
+        }
     }
-   check_fields(0, 4, 8, values_this_target)
-   check_fields(2, 4, 6, values_this_target)
+    if (check_fields(0, 4, 8, values_this_target) ||
+       check_fields(2, 4, 6, values_this_target)) {
+       return
+    }
+
+
 
 }
 
