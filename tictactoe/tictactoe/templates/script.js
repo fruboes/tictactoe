@@ -94,8 +94,10 @@ function add_user_mark_and_send_to_server(field) {
   var state = get_field_state(field)
   if (state === 0) {
     add_mark(field, 2)
+    if (move_possible !== true) { // note: this needs to be done twice: here and above
+        return
+    }
     var field_states = get_field_states();
-
     $.getJSON("/next_move",
             field_states,
             function(ret) {
