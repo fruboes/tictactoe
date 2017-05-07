@@ -23,10 +23,9 @@ function get_field_states() {
         field_states["f_"+index] = state
     }
   })
-  //console.log(field_states)
   return field_states
-
 }
+
 
 function add_mark(field, state) {
   var cur_state = get_field_state(field)
@@ -64,9 +63,8 @@ function check_fields(f1, f2, f3, values_this_target, target) {
         return true
     }
     return false
-
-
 }
+
 
 function check_win_and_mark(field_states, target) {
     var values_this_target = []
@@ -86,9 +84,6 @@ function check_win_and_mark(field_states, target) {
        check_fields(2, 4, 6, values_this_target, target)) {
        return
     }
-
-
-
 }
 
 
@@ -111,7 +106,6 @@ function add_user_mark_and_send_to_server(field) {
   }
 }
 
-
 $( document ).ready(function() {
   fix_size()
   $(".box").each( function(index) {
@@ -119,8 +113,6 @@ $( document ).ready(function() {
       add_user_mark_and_send_to_server( $(this))
     })
   })
- 
-  
 });
 
 $( window ).resize(fix_size)
