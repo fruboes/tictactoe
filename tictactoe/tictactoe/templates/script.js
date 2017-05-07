@@ -21,7 +21,7 @@ function get_field_states() {
         field_states["f_"+index] = state
     }
   })
-  console.log(field_states)
+  //console.log(field_states)
   return field_states
 
 }
@@ -41,6 +41,60 @@ function add_mark(field, state) {
   }
 }
 
+
+
+
+function check_win_and_mark(field_states, target) {
+    var values_this_target = []
+    for (field_name in field_states) {
+        if (field_states[field_name] === target) {
+            values_this_target.push(field_name)
+        }
+    }
+    //012 U 036
+    for (i = 0; i < 3; i++){
+        var name_1 = "f_"+i*3
+        var name_2 = "f_"+(i*3+1)
+        var name_3 = "f_"+(i*3+2)
+        if ($.inArray(name_1, values_this_target) !== -1 &&
+            $.inArray(name_2, values_this_target) !== -1 &&
+            $.inArray(name_3, values_this_target) !== -1)
+        {
+            console.log("win:"+name_1+name_2+name_3)
+        }
+
+        var name_1 = "f_"+i
+        var name_2 = "f_"+(i+3)
+        var name_3 = "f_"+(i+6)
+        if ($.inArray(name_1, values_this_target) !== -1 &&
+            $.inArray(name_2, values_this_target) !== -1 &&
+            $.inArray(name_3, values_this_target) !== -1)
+        {
+            console.log("win:"+name_1+name_2+name_3)
+        }
+
+
+        if ($.inArray("f_0", values_this_target) !== -1 &&
+            $.inArray("f_4", values_this_target) !== -1 &&
+            $.inArray("f_8", values_this_target) !== -1)
+        {
+            console.log("win:\\")
+        }
+
+
+        if ($.inArray("f_2", values_this_target) !== -1 &&
+            $.inArray("f_4", values_this_target) !== -1 &&
+            $.inArray("f_6", values_this_target) !== -1)
+        {
+            console.log("win://")
+        }
+
+    }
+
+    console.log(values_this_target)
+}
+
+
 function add_user_mark_and_send_to_server(field) {
   var state = get_field_state(field)
   if (state === 0) {
@@ -50,7 +104,7 @@ function add_user_mark_and_send_to_server(field) {
     $.getJSON("/next_move",
             field_states,
             function(ret) {
-                if (ret.result>0) {
+                if (ret.result>=0) {
                     add_mark($(".box:eq("+ret.result+")"), 1)
                 }
             })

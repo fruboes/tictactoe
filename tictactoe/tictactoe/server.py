@@ -22,7 +22,6 @@ def next_move():
     for k, v in request.args.items():
         field_no = int(k.split("_")[1])
         val = int(v)
-        print k, v, val
         marked_fields[field_no] = val
 
     remaining_fields = list(set(xrange(9))-set(marked_fields.keys()))
