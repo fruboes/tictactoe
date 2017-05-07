@@ -42,7 +42,19 @@ function add_mark(field, state) {
 }
 
 
+function check_fields(f1, f2, f3, values_this_target) {
+        var name_1 = "f_"+f1
+        var name_2 = "f_"+f2
+        var name_3 = "f_"+f3
+        if ($.inArray(name_1, values_this_target) !== -1 &&
+            $.inArray(name_2, values_this_target) !== -1 &&
+            $.inArray(name_3, values_this_target) !== -1)
+        {
+            console.log("win:"+name_1+name_2+name_3)
+        }
 
+
+}
 
 function check_win_and_mark(field_states, target) {
     var values_this_target = []
@@ -51,47 +63,13 @@ function check_win_and_mark(field_states, target) {
             values_this_target.push(field_name)
         }
     }
-    //012 U 036
     for (i = 0; i < 3; i++){
-        var name_1 = "f_"+i*3
-        var name_2 = "f_"+(i*3+1)
-        var name_3 = "f_"+(i*3+2)
-        if ($.inArray(name_1, values_this_target) !== -1 &&
-            $.inArray(name_2, values_this_target) !== -1 &&
-            $.inArray(name_3, values_this_target) !== -1)
-        {
-            console.log("win:"+name_1+name_2+name_3)
-        }
-
-        var name_1 = "f_"+i
-        var name_2 = "f_"+(i+3)
-        var name_3 = "f_"+(i+6)
-        if ($.inArray(name_1, values_this_target) !== -1 &&
-            $.inArray(name_2, values_this_target) !== -1 &&
-            $.inArray(name_3, values_this_target) !== -1)
-        {
-            console.log("win:"+name_1+name_2+name_3)
-        }
-
-
-        if ($.inArray("f_0", values_this_target) !== -1 &&
-            $.inArray("f_4", values_this_target) !== -1 &&
-            $.inArray("f_8", values_this_target) !== -1)
-        {
-            console.log("win:\\")
-        }
-
-
-        if ($.inArray("f_2", values_this_target) !== -1 &&
-            $.inArray("f_4", values_this_target) !== -1 &&
-            $.inArray("f_6", values_this_target) !== -1)
-        {
-            console.log("win://")
-        }
-
+        check_fields(i*3, i*3+1, i*3+2, values_this_target)
+        check_fields(i, i+3, i+6, values_this_target)
     }
+   check_fields(0, 4, 8, values_this_target)
+   check_fields(2, 4, 6, values_this_target)
 
-    console.log(values_this_target)
 }
 
 
@@ -100,6 +78,7 @@ function add_user_mark_and_send_to_server(field) {
   if (state === 0) {
     add_mark(field, 2)
     var field_states = get_field_states();
+    check_win_and_mark(field_states, 2)
 
     $.getJSON("/next_move",
             field_states,
