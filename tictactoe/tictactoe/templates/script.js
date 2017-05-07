@@ -36,22 +36,28 @@ function add_mark(field, state) {
     else if (state === 2){
         field.html('<div class="mark_x"></div><div class="mark_xx"></div>')
     }
-
+    check_win_and_mark(get_field_states(), state)
 
   }
 }
 
 
-function check_fields(f1, f2, f3, values_this_target) {
+function check_fields(f1, f2, f3, values_this_target, target) {
     var name_1 = "f_"+f1
     var name_2 = "f_"+f2
     var name_3 = "f_"+f3
-    //console.log(name_1+name_2+name_3)
     if ($.inArray(name_1, values_this_target) !== -1 &&
         $.inArray(name_2, values_this_target) !== -1 &&
         $.inArray(name_3, values_this_target) !== -1)
     {
-        console.log("win:"+name_1+name_2+name_3)
+        if (target === 2) {
+            var css_target = "background-color";
+        } else {
+            var css_target = "border-color";
+        }
+        $(".box:eq("+f1+")").children().css(css_target, "red");
+        $(".box:eq("+f2+")").children().css(css_target, "red");
+        $(".box:eq("+f3+")").children().css(css_target, "red");
         return true
     }
     return false
@@ -67,14 +73,14 @@ function check_win_and_mark(field_states, target) {
         }
     }
     for (i = 0; i < 3; i++){
-        if (check_fields(i*3, i*3+1, i*3+2, values_this_target) ||
-            check_fields(i, i+3, i+6, values_this_target))
+        if (check_fields(i*3, i*3+1, i*3+2, values_this_target, target) ||
+            check_fields(i, i+3, i+6, values_this_target, target))
         {
             return
         }
     }
-    if (check_fields(0, 4, 8, values_this_target) ||
-       check_fields(2, 4, 6, values_this_target)) {
+    if (check_fields(0, 4, 8, values_this_target, target) ||
+       check_fields(2, 4, 6, values_this_target, target)) {
        return
     }
 
@@ -88,7 +94,6 @@ function add_user_mark_and_send_to_server(field) {
   if (state === 0) {
     add_mark(field, 2)
     var field_states = get_field_states();
-    check_win_and_mark(field_states, 2)
 
     $.getJSON("/next_move",
             field_states,
@@ -98,9 +103,8 @@ function add_user_mark_and_send_to_server(field) {
                 }
             })
   }
-
-
 }
+
 
 $( document ).ready(function() {
   fix_size()
