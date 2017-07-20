@@ -87,10 +87,13 @@ function check_win_and_mark(field_states, target) {
 }
 
 
-function add_user_mark_and_send_to_server(field) {
+function add_user_mark_and_send_to_server(jqevent) {
+  var field = $(jqevent.target);
+
   if (move_possible !== true) {
     return
   }
+
   var state = get_field_state(field)
   if (state === 0) {
     add_mark(field, 2)
@@ -110,11 +113,8 @@ function add_user_mark_and_send_to_server(field) {
 
 $( document ).ready(function() {
   fix_size()
-  $(".box").each( function(index) {
-    $(this).click(function() {
-      add_user_mark_and_send_to_server( $(this))
-    })
-  })
+  $(".box").click(add_user_mark_and_send_to_server)
+  
 });
 
 $( window ).resize(fix_size)
