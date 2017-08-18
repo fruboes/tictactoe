@@ -13,7 +13,6 @@ def index():
 
 @app.route('/<string:name>')
 def static_files(name):
-    print "XXX", name
     return send_from_directory("templates", name)
 
 @app.route('/next_move')
@@ -24,7 +23,7 @@ def next_move():
         val = int(v)
         marked_fields[field_no] = val
 
-    remaining_fields = list(set(xrange(9))-set(marked_fields.keys()))
+    remaining_fields = list(set(range(9))-set(marked_fields.keys()))
     shuffle(remaining_fields)
     if remaining_fields:
         ret = remaining_fields[0]
