@@ -7,11 +7,11 @@ app.config.from_object(__name__)
 
 @app.route('/')
 def index():
-    return send_from_directory("basic_templates", "index.html")
+    return send_from_directory("templates", "index.html")
 
 @app.route('/<string:name>')
 def static_files(name):
-    return send_from_directory("basic_templates", name)
+    return send_from_directory("templates", name)
 
 @app.route('/hello')
 def hello():
