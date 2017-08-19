@@ -1,3 +1,3 @@
 #! /bin/bash
 
-FLASK_APP=basic/basic_server.py flask run -p 5001
+FLASK_APP=basic/server.py flask run -p 5001
