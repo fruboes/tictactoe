@@ -42,10 +42,11 @@ body {
  
 .container {
   margin: auto;
+  vertical-align: middle;
   display: flex;
   flex-direction: rows;
   flex-wrap: wrap;
-  /*justify-content: space-around;*/
+  justify-content: center;
   height: 500px;
   width: 500px;
 }
@@ -77,3 +78,7 @@ body {
   border-width: 1px; 
 }
 
+.center {
+  text-align: center;
+  margin: 20px;
+}

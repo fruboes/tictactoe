@@ -2,7 +2,7 @@ var move_possible = true;
 
 function fix_size(){
   
-  var grid_size = Math.min($(window).height(), $(window).width());
+  var grid_size = Math.min($(window).height()*0.8, $(window).width());
   $(".container").css("width", 0.9*grid_size);
   $(".container").css("height", 0.9*grid_size);
 }
